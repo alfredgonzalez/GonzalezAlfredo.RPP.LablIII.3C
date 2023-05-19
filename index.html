@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FUTBOLISTAS Y PROFESIONALES</title>
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+    }
+    
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+    }
+    
+    h2 {
+        color: #333;
+        text-align: center;
+    }
+    
+    label {
+        font-weight: bold;
+    }
+    
+    select,
+    input[type="text"],
+    input[type="number"] {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+    
+    button {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 5px;
+        background-color: #4caf50;
+        color: #fff;
+        cursor: pointer;
+    }
+    
+    button:hover {
+        background-color: #45a049;
+    }
+    
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+    
+    th,
+    td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    
+    .text-center {
+        text-align: center;
+    }
+    
+    .flex-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    
+    .form-line {
+        width: 48%;
+    }
+    
+    .checkbox-container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    .col {
+        width: 48%;
+        display: flex;
+        align-items: center;
+    }
+    
+    .btn-container {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+    
+    .btnAlta,
+    .btnBaja,
+    .btnModificacion,
+    .btnCancelar {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 5px;
+        background-color: #4caf50;
+        color: #fff;
+        cursor: pointer;
+    }
+    
+    .btnBaja {
+        background-color: #f44336;
+    }
+    
+    .btnModificacion {
+        background-color: #2196f3;
+    }
+    
+    .btnCancelar {
+        background-color: #808080;
+    }
+    
+    .btnAlta:hover,
+    .btnBaja:hover,
+    .btnModificacion:hover,
+    .btnCancelar:hover {
+        background-color: #45a049;
+    }
+    
+    .error-message {
+        color: red;
+        font-size: 12px;
+        margin-top: 4px;
+    }
+    
+    .success-message {
+        color: green;
+        font-size: 12px;
+        margin-top: 4px;
+    }
+    </style>
+<body>
+    <div class="container">
+        <h2>Form Datos</h2>
+        <div class="divComboFiltro">
+            <label for="cmbFiltro">Filtrar por:</label>
+            <select id="cmbFiltro" class="cmbFiltro" aria-label="Filtrar por:">
+                <option value="Profesional">Profesional</option>
+                <option value="Futbolista">Futbolista</option>
+                <option value="Todos">Todos</option>
+            </select>
+        </div>
+        <div class="flex-container">
+            <div class="form-line">
+                <label for="edadPromedio">Calcular Edad Promedio:</label>
+                <input type="text" id="edadPromedio">
+            </div>
+            <div class="form-line text-center">
+                <button id="btnPromedio">Calcular</button>
+            </div>
+        </div>
+        <label>Mostrar Columnas:</label>
+        <div id="filas" class="flex-container">
+            <div class="col">
+                <input type="checkbox" class="checkboxes" value="id" name="checkboxID" checked>
+                <label for="checkboxID">ID</label>
+            </div>
+              <div class="col">
+                <input type="checkbox" class=" checkboxes" value="nombre" name="checkboxNombre"  checked>
+                <label for="checkboxNombre">Nombre</label>
+              </div>
+              <div class="col">
+                <input type="checkbox" class=" checkboxes" value="apellido" name="checkboxApellido"  checked>
+                <label for="checkboxApellido">Apellido</label>
+              </div>
+              <div class="col">
+                <input type="checkbox" class=" checkboxes" value="edad" name="checkboxEdad"  checked>
+                <label for="checkboxEdad">Edad</label>
+              </div>
+              <div class="col">
+                <input type="checkbox" class=" checkboxes" value="equipo" name="checkboxEquipo"  checked>
+                <label for="checkboxEquipo">Equipo</label>
+              </div>
+              <div class="col">
+                <input type="checkbox" class=" checkboxes" value="posicion" name="checkboxPosicion"  checked>
+                <label for="checkboxPosicion">posicion</label>
+              </div>
+              
+              <div class="col">
+                <input type="checkbox" class=" checkboxes" value="cantidadGoles" name="checkboxCantidadGoles"  checked>
+                <label for="checkboxCantGoles">CantGoles</label>
+              </div>
+              <div class="col">
+                <input type="checkbox" class=" checkboxes" value="titulo" name="checkboxTitulo"  checked>
+                <label for="checkboxTitulo">Titulo</label>
+              </div>
+              <div class="col">
+                <input type="checkbox" class=" checkboxes" value="facultad" name="checkboxFacultad"  checked>
+                <label for="checkboxFacultad">Facultad</label>
+              </div>
+              <div class="col">
+                <input type="checkbox" class=" checkboxes" value="añoGraduacion" name="checkboxAñoGraduacion"  checked>
+                <label for="checkboxAñoGraduacion">AñoGrad</label>
+              </div>
+                </div>
+            <div id="table"> </div>
+        </div>
+
+    <div class="divTabla"></div>
+
+    <div id="divFormulario" class="container">
+        <legend>Form ABM</legend>
+        <form>
+          <div>
+            <div>
+              <label for="txtId">ID</label>
+              <input
+                type="text"
+                name="id"
+                class="form-control"
+                id="txtid"
+              />
+              <small></small>
+            </div>     
+            <div>
+              <div class="col-12">
+                <label for="txtNombre">Nombre</label>
+                <input
+                  type="text"
+                  name="nombre"
+                  class="form-control"
+                  id="txtNombre"
+                />
+                <small></small>
+              </div>
+            </div>
+            <div>
+              <div>
+                <label for="txtApellido">Apellido</label>
+                <input
+                  type="text"
+                  name="apellido"
+                  class="form-control"
+                  id="txtApellido"
+                />
+                <small></small>
+              </div>
+            </div>
+
+            <div >
+              <div >
+                <label for="edad">Edad</label>
+                <input
+                  type="number"
+                  name="edad"
+                  class="form-control"
+                  id="edad"
+                />
+                <small></small>
+              </div>
+            </div>
+            <div >
+              <div>
+                <label>Tipo: </label>
+                <select id="cmbTipo" class="cmbTipo" aria-label="Tipo: ">
+                    <option value="Profesional">Profesional</option>
+                    <option value="Futbolista">Futbolista</option>
+                  </select>
+                <small></small>
+              </div>
+            </div>
+            <div >
+                <div >
+                  <label for="equipo" id="lblEquipo">Equipo</label>
+                  <input
+                    type="text"
+                    name="equipo"
+                    class="form-control"
+                    id="txtEquipo"
+                  />
+                  <small></small>
+                </div>
+            </div>
+            <div >
+                <div >
+                  <label for="posicion" id="lblPosicion">Posicion</label>
+                  <input
+                    type="text"
+                    name="posicion"
+                    class="form-control"
+                    id="txtPosicion"
+                  />
+                  <small></small>
+                </div>
+            </div>
+            <div >
+                <div >
+                  <label for="cantidadGoles"  id="lblCantidadGoles">CantGoles</label>
+                  <input
+                    type="number"
+                    name="cantidadGoles"
+                    class="form-control"
+                    id="cantidadGoles"
+                  />
+                  <small></small>
+                </div>
+            </div>
+            <div >
+                <div >
+                  <label for="titulo" id="lblTitulo">Titulo</label>
+                  <input
+                    type="text"
+                    name="titulo"
+                    class="form-control"
+                    id="txtTitulo"
+                  />
+                  <small></small>
+                </div>
+            </div>
+            <div >
+                <div >
+                  <label for="facultad" id="lblFacultad">Facultad</label>
+                  <input
+                    type="text"
+                    name="facultad"
+                    class="form-control"
+                    id="txtFacultad"
+                  />
+                  <small></small>
+                </div>
+            </div>
+            <div >
+                <div >
+                  <label for="añoGraduacion" id="lblAñoGraduacion">AñoGrad</label>
+                  <input
+                    type="number"
+                    name="añoGraduacion"
+                    class="form-control"
+                    id="txtAñoGraduacion"
+                  />
+                  <small></small>
+                </div>
+            </div>
+            <button id="btnAlta">Alta</button>
+            <button id="btnBaja">Baja</button>
+            <button id="btnModificacion">Modificacion</button>
+            <button id="btnCancelar">Cancelar</button>
+            <small id="mensajeEnviar"></small>
+        </div>
+    </form>
+
+<body>
+    <script>
+
+        const $divTabla = document.querySelector(".divTabla");
+        const $filtro = document.getElementById("cmbFiltro");
+        const $checkboxes = document.querySelectorAll(".checkboxes");
+        const $btnCalcularPromedio = document.getElementById("btnPromedio");
+        const $edadPromedio = document.getElementById("edadPromedio");
+        const $formulario = document.forms[0];
+        const $tipo = document.getElementById("cmbTipo");
+        let keysListaFiltrada = cargarCheckboxes($checkboxes);
+        
+
+        class Persona{
+            constructor(id, nombre, apellido, edad) {
+            if (!Number.isInteger(id) || id <= 0) {
+            throw new Error("El ID debe ser no nulo.");
+            }
+            if (typeof nombre !== "string" || !nombre) {
+            throw new Error("El nombre debe ser no nulo.");
+            }
+            if (typeof apellido !== "string" || !apellido) {
+            throw new Error("El apellido debe ser no nulo.");
+            }
+            if (!Number.isInteger(edad)) {
+            throw new Error("La edad debe ser un numero entero");
+            }
+            this.id = id;
+            this.nombre = nombre;
+            this.apellido = apellido;
+            this.edad = edad;
+        }
+        }
+
+        class Futbolista extends Persona{
+            constructor(id, nombre, apellido, edad, equipo, posicion, cantidadGoles){
+                super(id,nombre,apellido,edad);
+                if (typeof equipo !== "string" || !equipo) {
+                throw new Error("El equipo debe ser no nulo");
+                }
+                if (typeof posicion !== "string" || !posicion) {
+                throw new Error("La posicion debe ser no nula");
+                }
+                if(typeof cantidadGoles !== 'number' || cantidadGoles < -1){
+                    throw new Error("la cantidad de goles debe ser mayor a -1");
+                }
+                this.equipo = equipo;
+                this.posicion = posicion;
+                this.cantidadGoles = cantidadGoles;
+            }
+        }
+
+        class Profesional extends Persona{
+            constructor(id, nombre, apellido, edad, titulo, facultad, añoGraduacion){
+                super(id, nombre, apellido, edad);
+                if (typeof titulo !== "string" || !titulo) {
+                throw new Error("El titulo debe ser no nulo");
+                }
+                if (typeof facultad !== "string" || !facultad) {
+                throw new Error("la facultad debe ser no nula");
+                }
+                if (typeof añoGraduacion !== 'number' || añoGraduacion < 1950) {
+                throw new Error("la graduacion debe ser mayor a 1950");
+                }
+                this.titulo = titulo;
+                this.facultad = facultad;
+                this.añoGraduacion = añoGraduacion;
+            }
+        }
+
+        const datos = '[{"id":1, "nombre":"Marcelo", "apellido":"Luque", "edad":45, "titulo":"Ingeniero", "facultad":"UTN","añoGraduacion":2002},{"id":2, "nombre":"Ramiro", "apellido":"Escobar", "edad":35, "titulo":"Medico","facultad":"UBA", "añoGraduacion":20012},{"id":3, "nombre":"Facundo", "apellido":"Cairo", "edad":30,"titulo":"Abogado", "facultad":"UCA", "añoGraduacion":2017},{"id":4, "nombre":"Fernando", "apellido":"Nieto","edad":18, "equipo":"Independiente", "posicion":"Delantero", "cantidadGoles":7},{"id":5, "nombre":"Manuel","apellido":"Loza", "edad":20, "equipo":"Racing", "posicion":"Volante", "cantidadGoles":2},{"id":6, "nombre":"Nicolas","apellido":"Serrano", "edad":23, "equipo":"Boca", "posicion":"Arquero", "cantidadGoles":0}]';
+
+        const objetos = JSON.parse(datos);
+
+        const personas = [];
+
+        objetos.forEach(obj => {
+        if (obj.titulo) {
+            personas.push(new Profesional(obj.id, obj.nombre, obj.apellido, obj.edad, obj.titulo, obj.facultad, obj.añoGraduacion));
+        } else if (obj.equipo) {
+            personas.push(new Futbolista(obj.id, obj.nombre, obj.apellido, obj.edad, obj.equipo, obj.posicion, obj.cantidadGoles));
+        }
+        });
+
+
+        console.log(personas);
+        function $(element_id)
+        {
+            return document.getElementById(element_id);
+        }
+
+        
+        //filtros
+        function filtrarProfesional(persona)
+        {
+            return persona instanceof Profesional;
+        }
+
+        function filtrarFutbolista(persona)
+        {
+            return persona instanceof Futbolista;
+        }
+
+        function filtrarLista(personas, keys)  
+        {
+            let personasFiltradas = [];
+            if($filtro.value == "Futbolista")
+            {
+                personasFiltradas = personas.filter(filtrarFutbolista);
+            }
+            else if($filtro.value == "Profesional")
+            {
+                personasFiltradas = personas.filter(filtrarProfesional);
+            }
+            else
+            {
+                personasFiltradas = personas;
+            }
+            
+            return  personasFiltradas.map((item) => {
+            let nuevaPersona = {};
+            keys.map((key) => nuevaPersona[key] = item[key]);
+            return nuevaPersona;
+            });
+        }
+
+        function cargarCheckboxes(checkboxes)
+        {
+            const keysListaFiltrada = [];
+            for (var item of checkboxes) {
+                if (item.checked)keysListaFiltrada.push(item.value);
+            }
+            return keysListaFiltrada;
+        }
+
+        //creacion de tabla
+        function crearCabecera(arrayPersonas) {
+            const cabecera = document.createElement("thead"),
+            tr = document.createElement("tr");
+
+            const headers = arrayPersonas.reduce((acc, arrayPersonas) => {
+                Object.keys(arrayPersonas).forEach(key => {
+                    if (!acc.includes(key)) {
+                        acc.push(key);
+                        }
+                    });
+                return acc;
+                }, []);
+            headers.forEach(element => {
+                const th = document.createElement("th");
+                th.textContent = element;
+                tr.appendChild(th);
+            });
+
+            cabecera.appendChild(tr);
+            return cabecera;
+        }
+
+        function crearCuerpo(personas) {
+            const cuerpo = document.createElement("tbody");
+
+            personas.forEach(elemento => {
+            const fila = document.createElement("tr");
+            for (const atributo in elemento) {
+                if (atributo === "id") {
+                    fila.setAttribute("data-id", elemento[atributo]);
+                }
+                const celda = document.createElement("td");
+                celda.textContent = elemento[atributo];
+                fila.appendChild(celda);
+                fila.classList.add("puntero");
+            }
+                cuerpo.appendChild(fila);
+            });
+                return cuerpo;
+        }
+
+        function crearTabla(personas) {
+
+            const tabla = document.createElement("table");
+            tabla.classList.add("centrar");
+            tabla.appendChild(crearCabecera(personas));
+            tabla.appendChild(crearCuerpo(personas));
+
+            return tabla;
+        }
+        //actualizo tabla
+        function actualizarTabla($divTabla, personas) {
+            console.log($divTabla)
+            while ($divTabla.hasChildNodes()) {
+                $divTabla.removeChild($divTabla.firstChild);
+            }
+            $divTabla.appendChild(crearTabla(personas));
+
+            $("txtid").disabled = 'true';
+        }
+        //calculo promedio
+        function calcularPromedioEdad(personas) {
+            if (personas.length === 0) {
+                return 0;
+            }
+            v = filtrarLista(personas, keysListaFiltrada);
+            const sumaEdades = v.reduce((total, persona) => total + persona.edad, 0);
+            const promedio = sumaEdades / v.length;
+            
+            return promedio;
+        }
+        //cargo form
+        function cargarFormulario(formulario, persona) 
+        {
+            if(persona instanceof Futbolista )
+            {
+                formulario.id.value = persona.id;
+                formulario.nombre.value = persona.nombre;
+                formulario.apellido.value = persona.apellido;
+                formulario.edad.value = persona.edad;
+                formulario.equipo.value = persona.equipo;
+                formulario.posicion.value = persona.posicion;
+                formulario.cantidadGoles.value = persona.cantidadGoles;
+                ocultarInput(persona);
+            }
+            else
+            {
+                formulario.id.value = persona.id;
+                formulario.nombre.value = persona.nombre;
+                formulario.apellido.value = persona.apellido;
+                formulario.edad.value = persona.edad;
+                formulario.titulo.value = persona.titulo;
+                formulario.facultad.value = persona.facultad;
+                formulario.añoGraduacion.value = persona.añoGraduacion;
+                ocultarInput(persona);
+            }    
+        }
+
+        //oculto input y label en caso de que sea el tipo distinto en ABM
+        function ocultarInput(persona)
+        {
+            if(persona instanceof Futbolista)
+            {
+                $("txtEquipo").style.display = 'block';
+                $("txtPosicion").style.display = 'block';
+                $("cantidadGoles").style.display = 'block';
+                $("lblEquipo").style.display = 'block';
+                $("lblPosicion").style.display = 'block';
+                $("lblCantidadGoles").style.display = 'block';
+
+                $("txtTitulo").style.display = 'none';
+                $("txtFacultad").style.display = 'none';
+                $("txtAñoGraduacion").style.display = 'none';
+                $("lblTitulo").style.display = 'none';
+                $("lblFacultad").style.display = 'none';
+                $("lblAñoGraduacion").style.display = 'none';
+            }
+            else
+            {
+                $("txtTitulo").style.display = 'block';
+                $("txtFacultad").style.display = 'block';
+                $("txtAñoGraduacion").style.display = 'block';
+                $("lblTitulo").style.display = 'block';
+                $("lblFacultad").style.display = 'block';
+                $("lblAñoGraduacion").style.display = 'block';
+                $("txtEquipo").style.display = 'none';
+                $("txtPosicion").style.display = 'none';
+                $("cantidadGoles").style.display = 'none';
+                $("lblEquipo").style.display = 'none';
+                $("lblPosicion").style.display = 'none';
+                $("lblCantidadGoles").style.display = 'none';
+            }
+        }
+
+            
+
+        //eventos
+        $checkboxes.forEach((element) =>
+        element.addEventListener("click", (e) => {
+            let seleccionado = e.target;
+            if (seleccionado.checked && $filtro.value) {
+            keysListaFiltrada.push(seleccionado.value);
+            } else {
+            keysListaFiltrada.splice(
+                keysListaFiltrada.indexOf(seleccionado.value),
+                1
+            );
+            }
+            $divTabla.style.display ="block";
+            actualizarTabla($divTabla, filtrarLista(personas, keysListaFiltrada));
+        })
+        );
+
+        $filtro.addEventListener("change", (e)=>
+        {
+            v =  [];
+            if($filtro.value == "Futbolista")
+            {
+                v = personas.filter(filtrarFutbolista);
+
+                //console.log(v);
+            }
+            else if($filtro.value == "Profesional")
+            {
+                v = personas.filter(filtrarProfesional);
+            }
+            else
+            {
+                v = personas;
+            }
+            
+            actualizarTabla($divTabla,filtrarLista(v,keysListaFiltrada));
+        });
+
+        $btnCalcularPromedio.addEventListener("click", function() {
+            const promedio = calcularPromedioEdad(personas);
+            $edadPromedio.value = parseFloat(promedio).toFixed(2);
+        });
+
+
+        $divTabla.addEventListener("dblclick", (e) => {
+
+        const emisor = e.target;
+        if (emisor.matches("tbody tr td")) {
+            let id = emisor.parentElement.dataset.id;
+            const persona = personas.find((element) => element.id == id);
+            idSeleccionado = id;
+            if(persona instanceof Futbolista)
+            {
+                $tipo.value = "Futbolista";
+            }
+            else
+            {
+                $tipo.value = "Profesional";
+            }
+            cargarFormulario($formulario, persona);
+            $formulario.style.display = "inline-table";
+            $divTabla.style.display = "none";
+        }
+        });
+
+        $checkboxes.forEach((element) =>
+        element.addEventListener("click", (e) => {
+            let seleccionado = e.target;
+            if (seleccionado.checked && $filtro.value) {
+            keysListaFiltrada.push(seleccionado.value);
+            } else {
+            keysListaFiltrada.splice(
+                keysListaFiltrada.indexOf(seleccionado.value),
+                1
+            );
+            }
+            $divTabla.style.display ="block";
+            actualizarTabla($divTabla, filtrarLista(personas, keysListaFiltrada));
+        })
+        );
+
+        window.addEventListener("load", (e)=>{
+   
+        actualizarTabla($divTabla, filtrarLista(personas, keysListaFiltrada));
+        })
+
+    </script>
+</body>
+</html>
