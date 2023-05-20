@@ -150,12 +150,8 @@
         border-radius: 5px;
     }
     .btnAgregar{
-        padding: 8px 16px;
-        border: none;
-        border-radius: 5px;
-        background-color: #4caf50;
-        color: #fff;
-        cursor: pointer;
+        margin-left: 22%;
+        width: 850px;
     }
     
     </style>
@@ -222,8 +218,7 @@
                 <input type="checkbox" class=" checkboxes" value="añoGraduacion" name="checkboxAñoGraduacion"  checked>
                 <label for="checkboxAñoGraduacion">AñoGrad</label>
               </div>
-                </div>
-            <div id="table"> </div>
+            </div>
         </div>
 
     <div class="divTabla"></div>
@@ -372,7 +367,6 @@
         </div>
     </form>
 
-<body>
     <script>
 
         const $divTabla = document.querySelector(".divTabla");
@@ -384,6 +378,7 @@
         const $tipo = document.getElementById("cmbTipo");
         const $btnModificar = document.querySelector("#btnModificacion");
         const $btnAlta = document.querySelector("#btnAlta");
+        const $btnBaja = document.querySelector("#btnBaja");
         const $btnAgregar = document.querySelector("#btnAgregar");
         const headers = document.querySelectorAll("#table th");
         let keysListaFiltrada = cargarCheckboxes($checkboxes);
@@ -425,11 +420,7 @@
 
         let personas = [];
 
-        headers.forEach((header, index) => {
-        header.addEventListener("click", () => {
-            ordenarTabla(index);
-        });
-        });
+       
 
         objetos.forEach(obj => {
         if (obj.titulo) {
@@ -448,6 +439,12 @@
 
         
         //filtros
+
+        function ordenarTabla(columna) {
+        ordenarArrayAscendente(personas, columna);
+        actualizarTabla($divTabla, filtrarLista(personas, keysListaFiltrada));
+        }
+        
 
         function ordenarArrayAscendente(array, filtro) {
             return array.sort((a, b) => {
@@ -568,8 +565,10 @@
             headers.forEach(element => {
                 const th = document.createElement("th");
                 th.textContent = element;
+                th.setAttribute("onclick", `ordenarTabla('${element}')`);
                 tr.appendChild(th);
             });
+            
 
             cabecera.appendChild(tr);
             return cabecera;
@@ -612,11 +611,13 @@
             $divTabla.appendChild(crearTabla(personas));
 
 
+            
             $formulario.style.display = 'none';
             $("legendABM").style.display = 'none';
             $("txtId").disabled = 'true';
-            $divTabla.style.display = 'block';
+            $divTabla.style.display = 'center';
             $btnAgregar.style.display = 'block';
+            
         }
         //calculo promedio
         function calcularPromedioEdad(personas) {
@@ -766,6 +767,7 @@
 
 
         $divTabla.addEventListener("dblclick", (e) => {
+        
 
         const emisor = e.target;
         if (emisor.matches("tbody tr td")) {
@@ -807,6 +809,7 @@
         window.addEventListener("load", (e)=>{
    
         actualizarTabla($divTabla, filtrarLista(personas, keysListaFiltrada));
+        
         })
 
         $btnModificar.addEventListener("click", (e)=>{
@@ -855,8 +858,17 @@
             }
         );
         $tipo.addEventListener('change', (filtrarTipo));
+        
+        $btnBaja.addEventListener('click',(e)=>
+        {
+            e.preventDefault();
+            var persona = personas.find((persona) => persona.id === parseInt(idSeleccionado));
+            personas.remove(persona);
 
+            actualizarTabla($divTabla, filtrarLista(personas, keysListaFiltrada));
+        })
         $btnAgregar.addEventListener('click', (e)=>{
+            e.preventDefault();
             $formulario.style.display = "inline-table";
             $divTabla.style.display = 'none';
             $btnAgregar.style.display = 'none';
@@ -865,7 +877,7 @@
         })
 
         $btnAlta.addEventListener('click', (e)=>{
-
+            e.preventDefault();
             var nombre = document.getElementById("txtNombre").value;
             var apellido = document.getElementById("txtApellido").value;
             var edad = document.getElementById("edad").value;
@@ -908,15 +920,12 @@
             {
                 console.log("favor seleccione un tipo");
             }
+            actualizarTabla($divTabla, personas);
         })
-        function ordenarTabla(columna) {
-        ordenarArrayAscendente(personas, columna);
-        actualizarTabla($divTabla, filtrarLista(personas, keysListaFiltrada));
-        }
+        
         
 
             
-
     </script>
 </body>
 </html>
